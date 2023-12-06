@@ -10,8 +10,9 @@ int calibrationValue(string currLine);
 int main()
 {
     string line;
-    ifstream inputFile("input.txt");
+    ifstream inputFile("../input.txt");
     int total = 0;
+
 
     if (inputFile.is_open())
     {
@@ -32,6 +33,13 @@ int calibrationValue(string currLine)
     int firstDigit=0;
     int secondDigit=0;
 
+    while(currLine[currChar])
+    {
+        
+        currChar+=1;
+    }
+
+    currChar = 0;
     while(currLine[currChar])
     {
         if(isdigit(currLine[currChar]))
