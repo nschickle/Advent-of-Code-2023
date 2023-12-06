@@ -35,13 +35,6 @@ int calibrationValue(string currLine)
 
     while(currLine[currChar])
     {
-        
-        currChar+=1;
-    }
-
-    currChar = 0;
-    while(currLine[currChar])
-    {
         if(isdigit(currLine[currChar]))
         {
             if(firstDigitChar=='A')
