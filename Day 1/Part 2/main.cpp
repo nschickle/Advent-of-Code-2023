@@ -2,10 +2,13 @@
 #include <fstream>
 #include <string>
 #include <cctype>
-
+#include <vector>
+#include <algorithm>
 using namespace std;
 
 int calibrationValue(string currLine);
+
+
 int main()
 {
     string line;
@@ -16,12 +19,13 @@ int main()
     {
         while (getline(inputFile, line))
         {
-            cout << calibrationValue(line) << endl;
+            //cout << calibrationValue(line) << endl;
             total = total + calibrationValue(line);
         }
     }
     cout << total << endl;
     inputFile.close();
+    return 0;
 }
 
 int calibrationValue(string currLine)
@@ -41,171 +45,87 @@ int calibrationValue(string currLine)
     size_t foundSeven = currLine.find("seven");
     size_t foundEight = currLine.find("eight");
     size_t foundNine = currLine.find("nine");
+    bool numWordsRemain;
 
-    if(string::npos != foundOne)
-    {
-        while(foundOne < newLine.length())
-        {
-            foundOne = newLine.find("one");
-            //cout << newLine << endl;
-            newLine.replace(foundOne,3,"1");
-            foundOne = newLine.find("one");
-            foundTwo = newLine.find("two");
-            foundThree = newLine.find("three");
-            foundFour = newLine.find("four");
-            foundFive = newLine.find("five");
-            foundSix = newLine.find("six");
-            foundSeven = newLine.find("seven");
-            foundEight = newLine.find("eight");
-            foundNine = newLine.find("nine");
-        }
-    }
     
-    if(string::npos != foundTwo)
+    while(foundOne != string::npos || foundTwo != string::npos || foundThree != string::npos || foundFour != string::npos || foundFive != string::npos || foundSix != string::npos || foundSeven != string::npos || foundEight != string::npos || foundNine != string::npos)
     {
-        while(foundTwo < newLine.length())
+        //cout << "1: " << foundOne << " 2: " << foundTwo << " 3: " << foundThree << " 4: " << foundFour << " 5: " << foundFive << " 6: " << foundSix << " 7: " << foundSeven << " 8: " << foundEight << " 9: " << foundNine << endl;
+        int firstOccurrence=99;
+        int occurrenceLength = 0;
+        string occurrenceNum = "a";
+        if(foundOne != string::npos)
         {
-            foundTwo = newLine.find("two");
-            //cout << newLine << endl;
-            newLine.replace(foundTwo,3,"2");
-            foundOne = newLine.find("one");
-            foundTwo = newLine.find("two");
-            foundThree = newLine.find("three");
-            foundFour = newLine.find("four");
-            foundFive = newLine.find("five");
-            foundSix = newLine.find("six");
-            foundSeven = newLine.find("seven");
-            foundEight = newLine.find("eight");
-            foundNine = newLine.find("nine");
+            firstOccurrence = foundOne;
+            occurrenceLength = 3;
+            occurrenceNum = "1";
         }
-    }
-    if(string::npos != foundThree)
-    {
-        while(foundThree < newLine.length())
+        if(foundTwo != string::npos && foundTwo < firstOccurrence)
         {
-            foundThree = newLine.find("three");
-            //cout << newLine << endl;
-            newLine.replace(foundThree,5,"3");
-            foundOne = newLine.find("one");
-            foundTwo = newLine.find("two");
-            foundThree = newLine.find("three");
-            foundFour = newLine.find("four");
-            foundFive = newLine.find("five");
-            foundSix = newLine.find("six");
-            foundSeven = newLine.find("seven");
-            foundEight = newLine.find("eight");
-            foundNine = newLine.find("nine");
+            firstOccurrence = foundTwo;
+            occurrenceLength = 3;
+            occurrenceNum = "2";
         }
-    }
-    if(string::npos != foundFour)
-    {
-        while(foundFour < newLine.length())
+        if(foundThree != string::npos && foundThree < firstOccurrence)
         {
-            foundFour = newLine.find("four");
-            //cout << newLine << " at " << foundFour << endl;
-            newLine.replace(foundFour,4,"4");
-            foundOne = newLine.find("one");
-            foundTwo = newLine.find("two");
-            foundThree = newLine.find("three");
-            foundFour = newLine.find("four");
-            foundFive = newLine.find("five");
-            foundSix = newLine.find("six");
-            foundSeven = newLine.find("seven");
-            foundEight = newLine.find("eight");
-            foundNine = newLine.find("nine");
+            firstOccurrence = foundThree;
+            occurrenceLength = 5;
+            occurrenceNum = "3";
         }
-    }
-    if(string::npos != foundFive)
-    {
-        while(foundFive < newLine.length())
+        if(foundFour != string::npos && foundFour < firstOccurrence)
         {
-            foundFive = newLine.find("five");
-            //cout << newLine << endl;
-            newLine.replace(foundFive,4,"5");
-            foundOne = newLine.find("one");
-            foundTwo = newLine.find("two");
-            foundThree = newLine.find("three");
-            foundFour = newLine.find("four");
-            foundFive = newLine.find("five");
-            foundSix = newLine.find("six");
-            foundSeven = newLine.find("seven");
-            foundEight = newLine.find("eight");
-            foundNine = newLine.find("nine");
+            firstOccurrence = foundFour;
+            occurrenceLength = 4;
+            occurrenceNum = "4";
         }
-    }
-    if(string::npos != foundSix)
-    {
-        while(foundSix < newLine.length())
+        if(foundFive != string::npos && foundFive < firstOccurrence)
         {
-            foundSix = newLine.find("six");
-            //cout << newLine << endl;
-            newLine.replace(foundSix,3,"6");
-            foundOne = newLine.find("one");
-            foundTwo = newLine.find("two");
-            foundThree = newLine.find("three");
-            foundFour = newLine.find("four");
-            foundFive = newLine.find("five");
-            foundSix = newLine.find("six");
-            foundSeven = newLine.find("seven");
-            foundEight = newLine.find("eight");
-            foundNine = newLine.find("nine");
+            firstOccurrence = foundFive;
+            occurrenceLength = 4;
+            occurrenceNum = "5";
         }
-    }
-    if(string::npos != foundSeven)
-    {
-        while(foundSeven < newLine.length())
+        if(foundSix != string::npos && foundSix < firstOccurrence)
         {
-            foundSeven = newLine.find("seven");
-            //cout << newLine << endl;
-            newLine.replace(foundSeven,5,"7");
-            foundOne = newLine.find("one");
-            foundTwo = newLine.find("two");
-            foundThree = newLine.find("three");
-            foundFour = newLine.find("four");
-            foundFive = newLine.find("five");
-            foundSix = newLine.find("six");
-            foundSeven = newLine.find("seven");
-            foundEight = newLine.find("eight");
-            foundNine = newLine.find("nine");
+            firstOccurrence = foundSix;
+            occurrenceLength = 3;
+            occurrenceNum = "6";
         }
-    }
-    if(string::npos != foundEight)
-    {
-        while(foundEight < newLine.length())
+        if(foundSeven != string::npos && foundSeven < firstOccurrence)
         {
-            foundEight = newLine.find("eight");
-            //cout << newLine << endl;
-            newLine.replace(foundEight,5,"8");
-            foundOne = newLine.find("one");
-            foundTwo = newLine.find("two");
-            foundThree = newLine.find("three");
-            foundFour = newLine.find("four");
-            foundFive = newLine.find("five");
-            foundSix = newLine.find("six");
-            foundSeven = newLine.find("seven");
-            foundEight = newLine.find("eight");
-            foundNine = newLine.find("nine");
+            firstOccurrence = foundSeven;
+            occurrenceLength = 5;
+            occurrenceNum = "7";
         }
-    }
-    if(string::npos != foundNine)
-    {
-        while(foundNine < newLine.length())
+        if(foundEight != string::npos && foundEight < firstOccurrence)
         {
-            foundNine = newLine.find("nine");
-            //cout << newLine << " at " << foundNine << endl;
-            newLine.replace(foundNine,4,"9");
-            foundOne = newLine.find("one");
-            foundTwo = newLine.find("two");
-            foundThree = newLine.find("three");
-            foundFour = newLine.find("four");
-            foundFive = newLine.find("five");
-            foundSix = newLine.find("six");
-            foundSeven = newLine.find("seven");
-            foundEight = newLine.find("eight");
-            foundNine = newLine.find("nine");
+            firstOccurrence = foundEight;
+            occurrenceLength = 5;
+            occurrenceNum = "8";
         }
+        if(foundNine != string::npos && foundNine < firstOccurrence)
+        {
+            firstOccurrence = foundNine;
+            occurrenceLength = 4;
+            occurrenceNum = "9";
+        }
+        if(firstOccurrence != 99)
+        { 
+            newLine.replace(firstOccurrence,occurrenceLength,occurrenceNum);
+        }
+        //cout << newLine << endl;
+        foundOne = newLine.find("one");
+        foundTwo = newLine.find("two");
+        foundThree = newLine.find("three");
+        foundFour = newLine.find("four");
+        foundFive = newLine.find("five");
+        foundSix = newLine.find("six");
+        foundSeven = newLine.find("seven");
+        foundEight = newLine.find("eight");
+        foundNine = newLine.find("nine");
     }
-    cout << currLine << " to " << newLine << endl;
+
+    
+    
     while(newLine[currChar])
     {
         if(isdigit(newLine[currChar]))
@@ -229,6 +149,6 @@ int calibrationValue(string currLine)
         currChar+=1;
         //cout << "(" << firstDigit << " " << secondDigit << ")" << newLine[currChar] << " ";
     }
-
+    cout << currLine << " to " << newLine << " resulting in " << firstDigit << secondDigit << endl;
     return (firstDigit*10)+secondDigit;
 }
