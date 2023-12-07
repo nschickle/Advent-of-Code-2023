@@ -58,55 +58,55 @@ int calibrationValue(string currLine)
         {
             firstOccurrence = foundOne;
             occurrenceLength = 3;
-            occurrenceNum = "1";
+            occurrenceNum = "o1e";
         }
         if(foundTwo != string::npos && foundTwo < firstOccurrence)
         {
             firstOccurrence = foundTwo;
             occurrenceLength = 3;
-            occurrenceNum = "2";
+            occurrenceNum = "t2o";
         }
         if(foundThree != string::npos && foundThree < firstOccurrence)
         {
             firstOccurrence = foundThree;
             occurrenceLength = 5;
-            occurrenceNum = "3";
+            occurrenceNum = "t3e";
         }
         if(foundFour != string::npos && foundFour < firstOccurrence)
         {
             firstOccurrence = foundFour;
             occurrenceLength = 4;
-            occurrenceNum = "4";
+            occurrenceNum = "f4r";
         }
         if(foundFive != string::npos && foundFive < firstOccurrence)
         {
             firstOccurrence = foundFive;
             occurrenceLength = 4;
-            occurrenceNum = "5";
+            occurrenceNum = "f5e";
         }
         if(foundSix != string::npos && foundSix < firstOccurrence)
         {
             firstOccurrence = foundSix;
             occurrenceLength = 3;
-            occurrenceNum = "6";
+            occurrenceNum = "s6x";
         }
         if(foundSeven != string::npos && foundSeven < firstOccurrence)
         {
             firstOccurrence = foundSeven;
             occurrenceLength = 5;
-            occurrenceNum = "7";
+            occurrenceNum = "s7n";
         }
         if(foundEight != string::npos && foundEight < firstOccurrence)
         {
             firstOccurrence = foundEight;
             occurrenceLength = 5;
-            occurrenceNum = "8";
+            occurrenceNum = "e8t";
         }
         if(foundNine != string::npos && foundNine < firstOccurrence)
         {
             firstOccurrence = foundNine;
             occurrenceLength = 4;
-            occurrenceNum = "9";
+            occurrenceNum = "n9e";
         }
         if(firstOccurrence != 99)
         { 
