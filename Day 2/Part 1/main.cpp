@@ -57,15 +57,7 @@ int gameIdIfWon(string currInput)
             numOfReds=tempInt;
             if(numOfReds>red)
             {
-                size_t colon = currInput.find(':');
-                if(colon != string::npos)
-                {
-                    gameIdLength = colon - 5;
-                }
-                tempStr = currInput.substr(5,gameIdLength);
-                gameId = stoi(tempStr);
-                cout << gameId << endl;
-                return gameId;
+                return 0;
             }
             //cout << numOfReds << endl;
         }
@@ -82,15 +74,7 @@ int gameIdIfWon(string currInput)
             numOfGreens=tempInt;
             if(numOfGreens>green)
             {
-                size_t colon = currInput.find(':');
-                if(colon != string::npos)
-                {
-                    gameIdLength = colon - 5;
-                }
-                tempStr = currInput.substr(5,gameIdLength);
-                gameId = stoi(tempStr);
-                cout << gameId << endl;
-                return gameId;
+                return 0;
             }
             //cout << numOfGreens << endl;
         }
@@ -107,23 +91,22 @@ int gameIdIfWon(string currInput)
             numOfBlues=tempInt;
             if(numOfBlues>blue)
             {
-                size_t colon = currInput.find(':');
-                if(colon != string::npos)
-                {
-                    gameIdLength = colon - 5;
-                }
-                tempStr = currInput.substr(5,gameIdLength);
-                gameId = stoi(tempStr);
-                cout << gameId << endl;
-                return gameId;
+                return 0;
             }
             cout << numOfBlues << endl;
         }
         tempStr = m.suffix();
     }
-    
+    size_t colon = currInput.find(':');
+    if(colon != string::npos)
+    {
+        gameIdLength = colon - 5;
+    }
+    tempStr = currInput.substr(5,gameIdLength);
+    gameId = stoi(tempStr);
+    cout << gameId << endl;
     //while(regex_search(currInput, m, redReg)){ tempStr = m.str();//cout << tempStr << endl;}
 
 
-    return 0;
+    return gameId;
 }
