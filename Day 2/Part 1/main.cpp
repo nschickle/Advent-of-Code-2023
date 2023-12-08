@@ -24,6 +24,7 @@ int main()
             sumOfWonGames = sumOfWonGames + gameIdIfWon(line);
         }
     }
+    cout << sumOfWonGames << endl;
     inputFile.close();
 }
 
@@ -36,19 +37,91 @@ int gameIdIfWon(string currInput)
     const int red = 12;
     const int green = 13;
     const int blue = 14;
+    int numOfReds = 0;
+    int numOfGreens = 0;
+    int numOfBlues = 0;
     int gameId;
     int gameIdLength;
     smatch m;
-    string tempStr;
-    
-    size_t colon = currInput.find(':');
-    if(colon != string::npos)
+    string tempStr = currInput;
+
+    cout << currInput << endl;
+
+    while(regex_search(tempStr, m, redReg)) 
     {
-        gameIdLength = colon - 5;
+        int tempInt = m[0].str().find(" ");
+        tempStr = m[0].str().substr(0,tempInt);
+        tempInt=stoi(tempStr);
+        if (tempInt > numOfReds)
+        {
+            numOfReds=tempInt;
+            if(numOfReds>red)
+            {
+                size_t colon = currInput.find(':');
+                if(colon != string::npos)
+                {
+                    gameIdLength = colon - 5;
+                }
+                tempStr = currInput.substr(5,gameIdLength);
+                gameId = stoi(tempStr);
+                cout << gameId << endl;
+                return gameId;
+            }
+            //cout << numOfReds << endl;
+        }
+        tempStr = m.suffix();
     }
-    tempStr = currInput.substr(5,gameIdLength);
-    gameId = stoi(tempStr);
-    cout << gameId << endl;
+    tempStr=currInput;
+    while(regex_search(tempStr, m, greenReg)) 
+    {
+        int tempInt = m[0].str().find(" ");
+        tempStr = m[0].str().substr(0,tempInt);
+        tempInt=stoi(tempStr);
+        if (tempInt > numOfGreens)
+        {
+            numOfGreens=tempInt;
+            if(numOfGreens>green)
+            {
+                size_t colon = currInput.find(':');
+                if(colon != string::npos)
+                {
+                    gameIdLength = colon - 5;
+                }
+                tempStr = currInput.substr(5,gameIdLength);
+                gameId = stoi(tempStr);
+                cout << gameId << endl;
+                return gameId;
+            }
+            //cout << numOfGreens << endl;
+        }
+        tempStr = m.suffix();
+    }
+    tempStr=currInput;
+    while(regex_search(tempStr, m, blueReg)) 
+    {
+        int tempInt = m[0].str().find(" ");
+        tempStr = m[0].str().substr(0,tempInt);
+        tempInt=stoi(tempStr);
+        if (tempInt > numOfReds)
+        {
+            numOfBlues=tempInt;
+            if(numOfBlues>blue)
+            {
+                size_t colon = currInput.find(':');
+                if(colon != string::npos)
+                {
+                    gameIdLength = colon - 5;
+                }
+                tempStr = currInput.substr(5,gameIdLength);
+                gameId = stoi(tempStr);
+                cout << gameId << endl;
+                return gameId;
+            }
+            cout << numOfBlues << endl;
+        }
+        tempStr = m.suffix();
+    }
+    
     //while(regex_search(currInput, m, redReg)){ tempStr = m.str();//cout << tempStr << endl;}
 
 
