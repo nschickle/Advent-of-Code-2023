@@ -34,14 +34,11 @@ int gameIdIfWon(string currInput)
     regex redReg("\\d+ red");
     regex greenReg("\\d+ green");
     regex blueReg("\\d+ blue");
-    const int red = 12;
-    const int green = 13;
-    const int blue = 14;
     int numOfReds = 0;
     int numOfGreens = 0;
     int numOfBlues = 0;
     int gameId;
-    int gameIdLength;
+    int power;
     smatch m;
     string tempStr = currInput;
 
@@ -55,14 +52,10 @@ int gameIdIfWon(string currInput)
         if (tempInt > numOfReds)
         {
             numOfReds=tempInt;
-            if(numOfReds>red)
-            {
-                return 0;
-            }
-            //cout << numOfReds << endl;
         }
         tempStr = m.suffix();
     }
+    cout << "Red: " << numOfReds << endl;
     tempStr=currInput;
     while(regex_search(tempStr, m, greenReg)) 
     {
@@ -72,14 +65,10 @@ int gameIdIfWon(string currInput)
         if (tempInt > numOfGreens)
         {
             numOfGreens=tempInt;
-            if(numOfGreens>green)
-            {
-                return 0;
-            }
-            //cout << numOfGreens << endl;
         }
         tempStr = m.suffix();
     }
+    cout << "Green: " << numOfGreens << endl;
     tempStr=currInput;
     while(regex_search(tempStr, m, blueReg)) 
     {
@@ -89,24 +78,12 @@ int gameIdIfWon(string currInput)
         if (tempInt > numOfBlues)
         {
             numOfBlues=tempInt;
-            if(numOfBlues>blue)
-            {
-                return 0;
-            }
-            cout << numOfBlues << endl;
         }
         tempStr = m.suffix();
     }
-    size_t colon = currInput.find(':');
-    if(colon != string::npos)
-    {
-        gameIdLength = colon - 5;
-    }
-    tempStr = currInput.substr(5,gameIdLength);
-    gameId = stoi(tempStr);
-    cout << gameId << endl;
-    //while(regex_search(currInput, m, redReg)){ tempStr = m.str();//cout << tempStr << endl;}
-
-
-    return gameId;
+    cout << "Blue: " << numOfBlues << endl;
+    power=numOfBlues*numOfGreens*numOfReds;
+    cout << "Power: " << power << endl;
+    
+    return power;
 }
