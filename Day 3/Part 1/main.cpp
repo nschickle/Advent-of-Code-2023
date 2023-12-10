@@ -9,12 +9,12 @@ using namespace std;
 
 int main()
 {
-    ifstream inputFile("../inputSmol.txt");
+    ifstream inputFile("../input.txt");
     string line;
     string tempStr;
     string tempStr0;
     regex potNum("\\d+");
-    regex specChar("[^0-9.]");
+    regex specChar("[^0-9.\n]");
     smatch m;
     smatch m0;
     int lineNum = 0;
@@ -40,9 +40,9 @@ int main()
                 realPos = realPos + m.position();
                 cout << m.str() << " with size " << m.length() << " at " << realPos << ", " << i << endl;
                 partEligable = 0;
-                if (i == 0)
+                if (i == 0) //first line, don't look for i-1
                 {
-                    if (m.position() == 0)
+                    if (realPos == 0) //first character, don't look for realPos-1
                     {
                         cout << "tempstr0: " << endl << m.str() << arr[i][m.length()+1] << endl;
                         tempStr0 = tempStr0 + arr[i][m.length()+1];
@@ -54,11 +54,12 @@ int main()
                         cout << endl;
                         if(regex_search(tempStr0, m0, specChar))
                         {
-                            cout << "Add " << m.str() << endl;
+                            cout << "Add " << m.str() << " to get " << partSum << endl;
                             partEligable = 1;
+                            partSum = partSum + stoi(m.str());
                         }
                     }
-                    else if (m.position()+m.length() == 140)
+                    else if (realPos+m.length() == 140) //extends to last char, don't look for postion+length+1
                     {
                         cout << "tempstr0: " << endl << arr[i][realPos-1] << m.str() << endl;
                         tempStr0 = tempStr0 + arr[i][realPos-1];
@@ -71,10 +72,11 @@ int main()
                         if(regex_search(tempStr0, m0, specChar))
                         {
                             partEligable = 1;
-                            cout << "Add " << m.str() << endl;
+                            partSum = partSum + stoi(m.str());
+                            cout << "Add " << m.str() << " to get " << partSum << endl;
                         }
                     }
-                    else
+                    else //middle characters, look for both
                     {
                         cout << "tempstr0: " << endl << arr[i][m.length()+1] << m.str() << arr[i][realPos-1] << endl;
                         tempStr0 = tempStr0 + arr[i][realPos-1];
@@ -88,60 +90,71 @@ int main()
                         if(regex_search(tempStr0, m0, specChar))
                         {
                             partEligable = 1;
-                            cout << "Add " << m.str() << endl;
+                            partSum = partSum + stoi(m.str());
+                            cout << "Add " << m.str() << " to get " << partSum << endl;
                         }
                     }
                 }
-                else if (i == lineNum)
+                else if (i == lineNum-1) //last line, don't look for i+1
                 {
-                    if (m.position() == 0)
+                    if (realPos == 0) //first character, don't look for realPos-1
                     {
+                        cout << "tempstr0: " << endl ;
                         for (size_t j = 0; j < m.length()+1; j++)
                         {
                             tempStr0 = tempStr0 + arr[i-1][j];
+                            cout << arr[i-1][j];
                         }
                         tempStr0 = tempStr0 + arr[i][m.length()+1];
-                        cout << "tempstr0: " << tempStr0 << endl;
+                        cout << endl << m.str() << arr[i][m.length()+1] << endl << endl;
                         if(regex_search(tempStr0, m0, specChar))
                         {
-                            cout << "Add " << m.str() << endl;
+                            cout << "Add " << m.str() << " to get " << partSum << endl;
                             partEligable = 1;
+                            partSum = partSum + stoi(m.str());
                         }
                     }
-                    else if (m.position()+m.length() == 140)
+                    else if (realPos+m.length() == 140) //extends to last char, don't look for postion+length+1
                     {
+                        cout << "tempstr0: " << endl;
                         for (size_t j = 0; j < m.length()+1; j++)
                         {
-                            tempStr0 = tempStr0 + arr[i-1][realPos+j];
+                            tempStr0 = tempStr0 + arr[i-1][realPos+j-1];
+                            cout << arr[i-1][realPos+j];
                         }
                         tempStr0 = tempStr0 + arr[i][realPos-1];
-                        cout << "tempstr0: " << tempStr0 << endl;
+                        cout << endl << arr[i][realPos-1] << m.str() << endl;
                         if(regex_search(tempStr0, m0, specChar))
                         {
                             partEligable = 1;
-                            cout << "Add " << m.str() << endl;
+                            partSum = partSum + stoi(m.str());
+                            cout << "Add " << m.str() << " to get " << partSum << endl;
                         }
                     }
-                    else
+                    else //middle characters, look for both
                     {
+                        cout << "tempstr0: " << endl;
                         for (size_t j = 0; j < m.length()+2; j++)
                         {
                             tempStr0 = tempStr0 + arr[i-1][realPos-1+j];
+                            cout << arr[i-1][realPos-1+j];
                         }
+                        cout << endl << arr[i][realPos-1] << m.str() << arr[i][realPos + m.length()] << endl;;
                         tempStr0 = tempStr0 + arr[i][realPos-1];
-                        tempStr0 = tempStr0 + arr[i][m.length()+1];
-                        cout << "tempstr0: " << tempStr0 << endl;
+                        tempStr0 = tempStr0 + arr[i][realPos + m.length()];
                         if(regex_search(tempStr0, m0, specChar))
                         {
                             partEligable = 1;
-                            cout << "Add " << m.str() << endl;
+                            partSum = partSum + stoi(m.str());
+                            cout << "Add " << m.str() << " to get " << partSum << endl;
                         }
                     }
                 }
-                else
+                else //middle lines, look above and below
                 {
-                    if (m.position() == 0)
+                    if (realPos == 0) //first character, don't look for realPos-1
                     {
+                        cout << "tempstr0: " << endl;
                         for (size_t j = 0; j < m.length()+1; j++)
                         {
                             tempStr0 = tempStr0 + arr[i-1][j];
@@ -157,28 +170,35 @@ int main()
                         cout << endl;
                         if(regex_search(tempStr0, m0, specChar))
                         {
-                            cout << "Add " << m.str() << endl;
+                            cout << "Add " << m.str() << " to get " << partSum << endl;
                             partEligable = 1;
+                            partSum = partSum + stoi(m.str());
                         }
                     }
-                    else if (m.position()+m.length() == 140)
+                    else if (realPos+m.length() == 140) //extends to last char, don't look for postion+length+1
                     {
+                        cout << "tempstr0: " << endl;
                         for (size_t j = 0; j < m.length()+1; j++)
                         {
-                            tempStr0 = tempStr0 + arr[i-1][realPos+j];
+                            tempStr0 = tempStr0 + arr[i-1][realPos+j-1];
+                            cout << arr[i-1][realPos+j];
                         }
+                        cout << endl << arr[i][realPos-1] << m.str() << endl;
                         tempStr0 = tempStr0 + arr[i][realPos-1];
                         for (size_t j = 0; j < m.length()+1; j++)
                         {
-                            tempStr0 = tempStr0 + arr[i+1][realPos+j];
+                            tempStr0 = tempStr0 + arr[i+1][realPos+j-1];
+                            cout << arr[i+1][realPos+j];
                         }
+                        cout << endl;
                         if(regex_search(tempStr0, m0, specChar))
                         {
                             partEligable = 1;
-                            cout << "Add " << m.str() << endl;
+                            partSum = partSum + stoi(m.str());
+                            cout << "Add " << m.str() << " to get " << partSum << endl;
                         }
                     }
-                    else
+                    else //middle characters, look for both
                     {
                         for (size_t j = 0; j < m.length()+2; j++)
                         {
@@ -197,7 +217,8 @@ int main()
                         if(regex_search(tempStr0, m0, specChar))
                         {
                             partEligable = 1;
-                            cout << "Add " << m.str() << endl;
+                            partSum = partSum + stoi(m.str());
+                            cout << "Add " << m.str() << " to get " << partSum << endl;
                         }
                     }
                 }
@@ -206,7 +227,7 @@ int main()
                 tempStr = m.suffix();
             }
         }
-        
+        cout << "Total: " << partSum << endl;
         
     }
     inputFile.close();
