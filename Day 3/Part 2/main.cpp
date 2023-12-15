@@ -23,7 +23,9 @@ int main()
     int partSum = 0;
     int realPos = 0;
     string arr [140];
+    pair<int, int> tempPair;
     vector<pair<int, int>> arrV;
+    vector<pair<int, int>>::iterator it;
 
     if (inputFile.is_open())
     {
@@ -48,7 +50,12 @@ int main()
                         tempStr0 = tempStr0 + arr[i][m.length()+1];
                         if(arr[i][m.length()+1] == '*')
                         {
-                            cout << "* at " << i << ", " << m.length()+1 << endl;
+                            tempPair = make_pair(i,m.length()+1);
+                            it = find(arrV.begin(), arrV.end(), tempPair);
+                            if (it != arrV.end())
+                            {
+                                cout << "Another Occurrence of * at " << i << ", " << m.length()+1 << endl;
+                            }
                             arrV.push_back(make_pair(i,m.length()+1));
                         }
                         for (size_t j = 0; j < m.length()+1; j++)
@@ -56,7 +63,12 @@ int main()
                             tempStr0 = tempStr0 + arr[i+1][j];
                             if(arr[i+1][j] == '*')
                             {
-                                cout << "* at " << i+1 << ", " << j << endl;
+                                tempPair = make_pair(i+1,j);
+                                it = find(arrV.begin(), arrV.end(), tempPair);
+                                if (it != arrV.end())
+                                {
+                                    cout << "Another Occurrence of * at " << i+1 << ", " << j << endl;
+                                }
                                 arrV.push_back(make_pair(i+1,j));
                             }
                         }
@@ -66,7 +78,12 @@ int main()
                         tempStr0 = tempStr0 + arr[i][realPos-1];
                         if (arr[i][realPos-1] == '*')
                         {
-                            cout << "* at " << i << ", " << realPos-1 << endl;
+                            tempPair = make_pair(i,realPos-1);
+                            it = find(arrV.begin(), arrV.end(), tempPair);
+                            if (it != arrV.end())
+                            {
+                                cout << "Another Occurrence of * at " << i << ", " << realPos-1 << endl;
+                            }
                             arrV.push_back(make_pair(i,realPos-1));
                         }
                         
@@ -75,7 +92,12 @@ int main()
                             tempStr0 = tempStr0 + arr[i+1][realPos+j];
                             if(arr[i+1][realPos+j] == '*')
                             {
-                                cout << "* at " << i+1 << ", " << realPos+j << endl;
+                                tempPair = make_pair(i+1,realPos+j);
+                                it = find(arrV.begin(), arrV.end(), tempPair);
+                                if (it != arrV.end())
+                                {
+                                    cout << "Another Occurrence of * at " << i+1 << ", " << realPos+j << endl;
+                                }
                                 arrV.push_back(make_pair(i+1,realPos+j));
                             }
                         }
@@ -84,7 +106,12 @@ int main()
                     {
                         if (arr[i][realPos-1] == '*')
                         {
-                            cout << "* at " << i << ", " << realPos-1 << endl;
+                            tempPair = make_pair(i,realPos-1);
+                            it = find(arrV.begin(), arrV.end(), tempPair);
+                            if (it != arrV.end())
+                            {
+                                cout << "Another Occurrence of * at " << i << ", " << realPos-1 << endl;
+                            }
                             arrV.push_back(make_pair(i,realPos-1));
                         }
                         tempStr0 = tempStr0 + arr[i][realPos-1];
@@ -93,13 +120,23 @@ int main()
                             tempStr0 = tempStr0 + arr[i+1][realPos+j-1];
                             if (arr[i+1][realPos+j-1] == '*')
                             {
-                                cout << "* at " << i+1 << ", " << realPos+j-1 << endl;
+                                tempPair = make_pair(i+1,realPos+j-1);
+                                it = find(arrV.begin(), arrV.end(), tempPair);
+                                if (it != arrV.end())
+                                {
+                                    cout << "Another Occurrence of * at " << i+1 << ", " << realPos+j-1 << endl;
+                                }
                                 arrV.push_back(make_pair(i+1,realPos+j-1));
                             }
                         }
                         if (arr[i][m.length()+1] == '*')
                         {
-                            cout << "* at " << i << ", " << m.length()+1 << endl;
+                            tempPair = make_pair(i,m.length()+1);
+                            it = find(arrV.begin(), arrV.end(), tempPair);
+                            if (it != arrV.end())
+                            {
+                                cout << "Another Occurrence of * at " << i << ", " << m.length()+1 << endl;
+                            }
                             arrV.push_back(make_pair(i,m.length()+1));
                         }
                         tempStr0 = tempStr0 + arr[i][m.length()+1];
@@ -114,13 +151,23 @@ int main()
                             tempStr0 = tempStr0 + arr[i-1][j];
                             if (arr[i-1][j] == '*')
                             {
-                                cout << "* at " << i-1 << ", " << j << endl;
+                                tempPair = make_pair(i-1,j);
+                                it = find(arrV.begin(), arrV.end(), tempPair);
+                                if (it != arrV.end())
+                                {
+                                    cout << "Another Occurrence of * at " << i-1 << ", " << j << endl;
+                                }
                                 arrV.push_back(make_pair(i-1,j));
                             }
                         }
                         if (arr[i][m.length()+1] == '*')
                         {
-                            cout << "* at " << i << ", " << m.length()+1 << endl;
+                            tempPair = make_pair(i,m.length()+1);
+                            it = find(arrV.begin(), arrV.end(), tempPair);
+                            if (it != arrV.end())
+                            {
+                                cout << "Another Occurrence of * at " << i << ", " << m.length()+1 << endl;
+                            }
                             arrV.push_back(make_pair(i,m.length()+1));
                         }
                         tempStr0 = tempStr0 + arr[i][m.length()+1];
@@ -132,14 +179,24 @@ int main()
                             tempStr0 = tempStr0 + arr[i-1][realPos+j-1];
                             if (arr[i-1][realPos+j-1] == '*')
                             {
-                                cout << "* at " << i-1 << ", " << realPos+j-1 << endl;
+                                tempPair = make_pair(i-1,realPos+j-1);
+                                it = find(arrV.begin(), arrV.end(), tempPair);
+                                if (it != arrV.end())
+                                {
+                                    cout << "Another Occurrence of * at " << i-1 << ", " << realPos+j-1 << endl;
+                                }
                                 arrV.push_back(make_pair(i-1,realPos+j-1));
                             }
                         }
                         tempStr0 = tempStr0 + arr[i][realPos-1];
                         if (arr[i][realPos-1] == '*')
                         {
-                            cout << "* at " << i << ", " << realPos-1 << endl;
+                            tempPair = make_pair(i,realPos-1);
+                            it = find(arrV.begin(), arrV.end(), tempPair);
+                            if (it != arrV.end())
+                            {
+                                cout << "Another Occurrence of * at " << i << ", " << realPos-1 << endl;
+                            }
                             arrV.push_back(make_pair(i,realPos-1));
                         }
                     }
@@ -150,19 +207,34 @@ int main()
                             tempStr0 = tempStr0 + arr[i-1][realPos-1+j];
                             if (arr[i-1][realPos+j-1] == '*')
                             {
-                                cout << "* at " << i-1 << ", " << realPos+j-1 << endl;
+                                tempPair = make_pair(i-1,realPos+j-1);
+                                it = find(arrV.begin(), arrV.end(), tempPair);
+                                if (it != arrV.end())
+                                {
+                                    cout << "Another Occurrence of * at " << i-1 << ", " << realPos+j-1 << endl;
+                                }
                                 arrV.push_back(make_pair(i-1,realPos+j-1));
                             }
                         }
                         
                         if (arr[i][realPos-1] == '*')
                         {
-                            cout << "* at " << i << ", " << realPos-1 << endl;
+                            tempPair = make_pair(i,realPos-1);
+                            it = find(arrV.begin(), arrV.end(), tempPair);
+                            if (it != arrV.end())
+                            {
+                                cout << "Another Occurrence of * at " << i << ", " << realPos-1 << endl;
+                            }
                             arrV.push_back(make_pair(i,realPos-1));
                         }
                         if (arr[i][realPos + m.length()] == '*')
                         {
-                            cout << "* at " << i << ", " << realPos + m.length() << endl;
+                            tempPair = make_pair(i,realPos + m.length());
+                            it = find(arrV.begin(), arrV.end(), tempPair);
+                            if (it != arrV.end())
+                            {
+                                cout << "Another Occurrence of * at " << i << ", " << realPos + m.length() << endl;
+                            }
                             arrV.push_back(make_pair(i,realPos + m.length()));
                         }
                         tempStr0 = tempStr0 + arr[i][realPos-1];
@@ -178,13 +250,23 @@ int main()
                             tempStr0 = tempStr0 + arr[i-1][j];
                             if(arr[i-1][j] == '*')
                             {
-                                cout << "* at " << i-1 << ", " << j << endl;
+                                tempPair = make_pair(i-1,j);
+                                it = find(arrV.begin(), arrV.end(), tempPair);
+                                if (it != arrV.end())
+                                {
+                                    cout << "Another Occurrence of * at " << i-1 << ", " << j << endl;
+                                }
                                 arrV.push_back(make_pair(i-1,j));
                             }
                         }
                         if(arr[i][m.length()+1] == '*')
                         {
-                            cout << "* at " << i << ", " << m.length()+1 << endl;
+                            tempPair = make_pair(i,m.length()+1);
+                            it = find(arrV.begin(), arrV.end(), tempPair);
+                            if (it != arrV.end())
+                            {
+                                cout << "Another Occurrence of * at " << i << ", " << m.length()+1 << endl;
+                            }
                             arrV.push_back(make_pair(i,m.length()+1));
                         }
                         tempStr0 = tempStr0 + arr[i][m.length()+1];
@@ -193,7 +275,12 @@ int main()
                             tempStr0 = tempStr0 + arr[i+1][j];
                             if(arr[i-1][j] == '*')
                             {
-                                cout << "* at " << i+1 << ", " << j << endl;
+                                tempPair = make_pair(i+1,j);
+                                it = find(arrV.begin(), arrV.end(), tempPair);
+                                if (it != arrV.end())
+                                {
+                                    cout << "Another Occurrence of * at " << i+1 << ", " << j << endl;
+                                }
                                 arrV.push_back(make_pair(i+1,j));
                             }
                         }
@@ -205,13 +292,23 @@ int main()
                             tempStr0 = tempStr0 + arr[i-1][realPos+j-1];
                             if(arr[i-1][realPos+j-1] == '*')
                             {
-                                cout << "* at " << i-1 << ", " << realPos+j-1 << endl;
+                                tempPair = make_pair(i-1,realPos+j-1);
+                                it = find(arrV.begin(), arrV.end(), tempPair);
+                                if (it != arrV.end())
+                                {
+                                    cout << "Another Occurrence of * at " << i-1 << ", " << realPos+j-1 << endl;
+                                }
                                 arrV.push_back(make_pair(i-1,realPos+j-1));
                             }
                         }
                         if(arr[i][realPos-1] == '*')
                         {
-                            cout << "* at " << i << ", " << realPos-1 << endl;
+                            tempPair = make_pair(i,realPos-1);
+                            it = find(arrV.begin(), arrV.end(), tempPair);
+                            if (it != arrV.end())
+                            {
+                                cout << "Another Occurrence of * at " << i << ", " << realPos-1 << endl;
+                            }
                             arrV.push_back(make_pair(i,realPos-1));
                         }
                         tempStr0 = tempStr0 + arr[i][realPos-1];
@@ -220,7 +317,12 @@ int main()
                             tempStr0 = tempStr0 + arr[i+1][realPos+j-1];
                             if(arr[i+1][realPos+j-1] == '*')
                             {
-                                cout << "* at " << i+1 << ", " << realPos+j-1 << endl;
+                                tempPair = make_pair(i+1,realPos+j-1);
+                                it = find(arrV.begin(), arrV.end(), tempPair);
+                                if (it != arrV.end())
+                                {
+                                    cout << "Another Occurrence of * at " << i+1 << ", " << realPos+j-1 << endl;
+                                }
                                 arrV.push_back(make_pair(i+1,realPos+j-1));
                             }
                         }
@@ -232,13 +334,23 @@ int main()
                             tempStr0 = tempStr0 + arr[i-1][realPos-1+j];
                             if(arr[i-1][realPos+j-1] == '*')
                             {
-                                cout << "* at " << i-1 << ", " << realPos+j-1 << endl;
+                                tempPair = make_pair(i-1,realPos+j-1);
+                                it = find(arrV.begin(), arrV.end(), tempPair);
+                                if (it != arrV.end())
+                                {
+                                    cout << "Another Occurrence of * at " << i-1 << ", " << realPos+j-1 << endl;
+                                }
                                 arrV.push_back(make_pair(i-1,realPos+j-1));
                             }
                         }
                         if(arr[i][realPos-1] == '*')
                         {
-                            cout << "* at " << i << ", " << realPos-1 << endl;
+                            tempPair = make_pair(i,realPos-1);
+                            it = find(arrV.begin(), arrV.end(), tempPair);
+                            if (it != arrV.end())
+                            {
+                                cout << "Another Occurrence of * at " << i << ", " << realPos-1 << endl;
+                            }
                             arrV.push_back(make_pair(i,realPos-1));
                         }
                         tempStr0 = tempStr0 + arr[i][realPos-1];
@@ -247,13 +359,25 @@ int main()
                             tempStr0 = tempStr0 + arr[i+1][realPos-1+j];
                             if(arr[i+1][realPos+j-1] == '*')
                             {
-                                cout << "* at " << i+1 << ", " << realPos+j-1 << endl;
+                                tempPair = make_pair(i+1,realPos+j-1);
+                                it = find(arrV.begin(), arrV.end(), tempPair);
+                                if (it != arrV.end())
+                                {
+                                    cout << "Another Occurrence of * at " << i+1 << ", " << realPos+j-1 << endl;
+                                }
+                                
+                                
                                 arrV.push_back(make_pair(i+1,realPos+j-1));
                             }
                         }
                         if(arr[i][realPos + m.length()] == '*')
                         {
-                            cout << "* at " << i << ", " << realPos + m.length() << endl;
+                            tempPair = make_pair(i,realPos + m.length());
+                            it = find(arrV.begin(), arrV.end(), tempPair);
+                            if (it != arrV.end())
+                            {
+                                cout << "Another Occurrence of * at " << i << ", " << realPos + m.length() << endl;
+                            }
                             arrV.push_back(make_pair(i,realPos + m.length()));
                         }
                         tempStr0 = tempStr0 + arr[i][realPos + m.length()];
